@@ -1,0 +1,61 @@
+export interface SerializedException {
+  message : string;
+  code : string;
+  stack ?: string;
+  cause ?: string;
+  metadata ?: unknown;
+  /**
+   * We can add optional `metadata` object to
+   * exceptions (if language doesn't support anything
+   * similar by default) and pass some useful technical
+   * information about the exception when throwing.
+   * This will make debugging easier.
+   */
+}
+
+/**
+ * Base class for custom exceptions.
+ *
+ * @abstract
+ * @class ExceptionBase
+ * @extends {Error}
+ */
+export abstract class ExceptionBase extends Error {
+  abstract code : string;
+
+  public readonly correlationId : string;
+
+  /**
+   * @param {string} message
+   * @param cause
+   * @param [metadata={}]
+   * **BE CAREFUL**  We should not include sensitive info in 'metadata'
+   * to prevent leaks since all exception's data will end up
+   * in application's log files. Only include non-sensitive
+   * info that may help with debugging.
+   */
+  constructor(
+    readonly message : string,
+    readonly cause ?: Error,
+    readonly metadata ?: unknown,
+  ) {
+    super( message );
+    Error.captureStackTrace( this, this.constructor );
+  }
+
+  /**
+   * By default in NodeJS Error objects are not
+   * serialized properly when sending plain objects
+   * to external processes. This method is a workaround.
+   * Lets not forget not to return a stack trace to user when in production.
+   */
+  toJSON() : SerializedException {
+    return {
+      message: this.message,
+      code: this.code,
+      stack: this.stack,
+      cause: JSON.stringify( this.cause ),
+      metadata: this.metadata,
+    };
+  }
+}
