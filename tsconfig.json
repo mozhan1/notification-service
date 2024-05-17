@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "rootDir": "./",
+        "outDir": "./build",
+        "moduleResolution": "node",
+        "module": "CommonJS",
+        "target": "ES2022",
+        "paths": {
+            "@domain/*": ["./src/domain/*"],
+            "@infrastructure/*": ["./src/infrastructure/*"],
+            "@application/*": ["./src/application/*"],
+            "@libs/*": ["./src/libs/*"],
+            "@configs/*": ["./src/configs/*"]
+        },
+        "allowJs": false,
+        "strict": true,
+        "esModuleInterop": true,
+        "preserveConstEnums": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "skipLibCheck": true,
+        "incremental": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "strictBindCallApply": false,
+        "strictPropertyInitialization": false,
+        "noErrorTruncation": true
+    },
+    "include": [
+      "src/**/*.ts",
+      "node_modules/ts-jest/globals.d.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
+}
