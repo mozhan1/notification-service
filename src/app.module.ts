@@ -7,16 +7,15 @@ import { GlobalCqrsModule } from '@configs/global-cqrs.module';
 import mikroOrmConfig from '@configs/mikro-orm.config';
 import { WinstonModule} from "nest-winston";
 import { createWinstonConfig } from '@configs/custom-logger/custom-logger.config';
+import {CreatePostNotificationController} from "@application/create-post-notification.controller";
 
 @Module( {
   imports: [
     WinstonModule.forRoot( createWinstonConfig() ),
     ConfigModule.forRoot(),
     GlobalCqrsModule,
-    RequestContextModule,
-    MikroOrmModule.forRoot( mikroOrmConfig ),
   ],
-  controllers: [HealthController], //TestController
+  controllers: [HealthController, CreatePostNotificationController], //TestController
   providers: [],
 } )
 export class AppModule {}

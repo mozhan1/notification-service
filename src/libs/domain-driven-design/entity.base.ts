@@ -1,9 +1,8 @@
-import { UuidValueObject } from '@domain/aggregates/shared-value-objects/uuid.value-object';
 import { ArgumentInvalidException, ArgumentNotProvidedException, ArgumentOutOfRangeException } from '@libs/exceptions/exceptions';
 import { Guard } from '@libs/guard';
 import { convertPropsToObject } from '@libs/utils/convert-props-to-object.util';
 
-export type AggregateId = UuidValueObject;
+export type AggregateId = string;
 
 export interface BaseEntityProps {
   id : AggregateId;
@@ -150,7 +149,7 @@ export abstract class Entity<EntityProps> {
    * Get the entity's identity.
    */
   get idToString() : string {
-    return this._id.toString;
+    return this._id.toString();
   }
 
   get Id() : AggregateId {

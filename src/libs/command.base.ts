@@ -1,4 +1,3 @@
-import { RequestContextService } from '@application/context/AppRequestContext';
 import { ArgumentNotProvidedException } from '@libs/exceptions/exceptions';
 import { Guard } from '@libs/guard';
 import { randomUUID } from 'crypto';
@@ -43,11 +42,11 @@ export class Command {
       );
     }
 
-    const ctx = RequestContextService.getContext();
+   // const ctx = RequestContextService.getContext();
 
     this.id = props.id || randomUUID();
     this.metadata = {
-      correlationId: props?.metadata?.correlationId || ctx.requestId,
+      correlationId: props?.metadata?.correlationId || '1',
       causationId: props?.metadata?.causationId,
       timestamp: props?.metadata?.timestamp || Date.now(),
       accountId: props?.metadata?.accountId,
